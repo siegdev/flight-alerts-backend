@@ -17,7 +17,7 @@ Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
 ---
 
-## ✅ Features
+## Features
 
 - Magic link authentication (MFA via email)
 - JWT-based sessions stored in **secure HTTP-only cookies**
@@ -43,7 +43,7 @@ Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```txt
 flight-alerts-backend/
