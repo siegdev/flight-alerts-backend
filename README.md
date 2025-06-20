@@ -29,7 +29,7 @@ Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | Layer     | Tech                    |
 | --------- | ----------------------- |
@@ -62,7 +62,7 @@ flight-alerts-backend/
 └── .env
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Prerequisites
 
@@ -101,7 +101,7 @@ npx prisma generate
 yarn start:dev
 ```
 
-## 🔐 API Authentication
+## API Authentication
 
 Auth is based on **email MFA (magic code)**.
 
@@ -113,7 +113,7 @@ You can test protected routes using Postman or any frontend client.
 
 ---
 
-## 📌 Next Steps
+## Next Steps
 
 - [ ] Integrate with SendGrid or Resend to email the magic code
 - [ ] Deploy backend to Heroku / AWS / Render
@@ -123,12 +123,6 @@ You can test protected routes using Postman or any frontend client.
 
 ---
 
-## 📸 Preview (optional)
-
-_Add screenshots or an architecture diagram here later._
-
----
-
-## 🤝 License
+## License
 
 MIT — do whatever you want 😄
