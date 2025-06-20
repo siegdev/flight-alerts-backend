@@ -12,3 +12,21 @@ model User {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model AuthCode {
+  id         String   @id @default(uuid())
+  email      String
+  code       String
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+}
+
+model FlightAlert {
+  id          String   @id @default(uuid())
+  email       String
+  origin      String
+  destination String
+  maxPrice    Int
+  departureDate DateTime
+  createdAt   DateTime @default(now())
+}
