@@ -29,4 +29,6 @@ model FlightAlert {
   maxPrice    Int
   departureDate DateTime
   createdAt   DateTime @default(now())
+
+  @@unique([email, origin, destination, maxPrice, departureDate])
 }

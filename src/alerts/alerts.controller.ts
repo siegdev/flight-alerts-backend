@@ -1,13 +1,38 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Delete,
+  Param,
+  Req,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { JwtPayload } from '../auth/types/jwt-payload.type';
-import { User } from 'src/auth/decorators/user.decorator';
+import { AlertsService } from './alerts.service';
+import { CreateAlertDto } from './dto/create-alert.dto';
+import { Request } from 'express';
 
 @Controller('alerts')
+@UseGuards(AuthGuard('jwt'))
 export class AlertsController {
-  @UseGuards(AuthGuard('jwt'))
-  @Get('me')
-  getMyAlerts(@User() user: JwtPayload) {
-    return `Here are the alerts for ${user.email}`;
+  constructor(private readonly alertsService: AlertsService) {}
+
+  @Post()
+  create(@Body() dto: CreateAlertDto, @Req() req: Request) {
+    const user = req.user as { email: string };
+    return this.alertsService.create(user.email, dto);
+  }
+
+  @Get()
+  findAll(@Req() req: Request) {
+    const user = req.user as { email: string };
+    return this.alertsService.findAllByEmail(user.email);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string, @Req() req: Request) {
+    const user = req.user as { email: string };
+    return this.alertsService.delete(id, user.email);
   }
 }
