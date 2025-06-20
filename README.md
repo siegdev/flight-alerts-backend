@@ -1,77 +1,134 @@
-# flight-alerts-backend
+# ✈️ Flight Alerts Backend
 
-Backend built with **NestJS + TypeScript** for a flight alerts system.
+Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
-## Technologies Used
+> Track cheap flights and get notified — powered by PostgreSQL and Prisma.
 
-- NestJS
-- TypeScript
-- Prisma ORM
-- PostgreSQL (via Docker)
-- Jest (testing)
-- ESLint (code quality)
+---
 
-## How to Run Locally
+## 📚 Table of Contents
 
-### Prerequisites
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Authentication](#api-authentication)
+- [Next Steps](#next-steps)
 
-- Node.js 23.x+
-- Docker and Docker Compose
+---
+
+## ✅ Features
+
+- Magic link authentication (MFA via email)
+- JWT-based sessions stored in **secure HTTP-only cookies**
+- Auth-protected routes with `@UseGuards`
+- Prisma ORM with PostgreSQL (Docker)
+- Request validation using DTOs
+- Full CRUD for flight alerts
+- Designed for frontend integration via REST
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer     | Tech                    |
+| --------- | ----------------------- |
+| Language  | TypeScript              |
+| Framework | NestJS                  |
+| ORM       | Prisma                  |
+| Database  | PostgreSQL (Dockerized) |
+| Auth      | JWT (via cookie)        |
+| Linting   | ESLint                  |
+| Testing   | Jest                    |
+
+---
+
+## 📁 Project Structure
+
+```txt
+flight-alerts-backend/
+│
+├── src/
+│   ├── auth/         # Login, JWT, code validation
+│   ├── alerts/       # CRUD for flight alerts
+│   ├── prisma/       # PrismaService + DB access
+│   └── app.module.ts # Main application module
+│
+├── prisma/
+│   ├── schema.prisma # Database models
+│   └── migrations/
+│
+├── docker-compose.yml
+└── .env
+```
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+
+- Node.js **v23.x**
+- Docker + Docker Compose
 - Yarn or npm
 
-### Steps
-
-1. Clone the repository:
+### 2. Clone and install
 
 ```bash
 git clone https://github.com/siegdev/flight-alerts-backend.git
-
 cd flight-alerts-backend
-```
-
-2. Install dependencies
-
-```
 yarn install
 ```
 
-3. Configure the database in the .env file (example):
+### 3. Configure `.env`
 
-```
+Create a `.env` file in the project root with the following content:
+
+```env
 DATABASE_URL="postgresql://dev:dev@localhost:5432/flight_alerts"
+JWT_SECRET="supersecret"
 ```
 
-4. Start the database with Docker:
+### 4. Start DB and run migrations
 
-```
+```bash
 docker-compose up -d
-```
-
-5. Run migrations and generate Prisma client:
-
-```
 npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-6. Start the server in development mode:
+### 5. Start the server
 
-```
+```bash
 yarn start:dev
 ```
 
-## Project Structure
+## 🔐 API Authentication
 
-- `src/` — source code
-- `src/app.module.ts` — main module
-- `src/user/` — user module (example)
-- `prisma/` — database schema and migrations
+Auth is based on **email MFA (magic code)**.
+
+After verifying the code, a **JWT** is sent via **HTTP-only cookie**.
+
+Authenticated routes extract the token from the cookie automatically.
+
+You can test protected routes using Postman or any frontend client.
 
 ---
 
-## Next Steps
+## 📌 Next Steps
 
-- Implement magic link authentication (email MFA code)
-- Create flight alerts module
-- Develop Next.js frontend consuming this API
-- Set up linting, testing, and CI/CD
+- [ ] Integrate with SendGrid or Resend to email the magic code
+- [ ] Deploy backend to Heroku / AWS / Render
+- [ ] Build frontend with Next.js (consuming this API)
+- [ ] Add CI (GitHub Actions) and E2E tests
+- [ ] Add rate limiting and basic analytics
+
+---
+
+## 📸 Preview (optional)
+
+_Add screenshots or an architecture diagram here later._
+
+---
+
+## 🤝 License
+
+MIT — do whatever you want 😄
