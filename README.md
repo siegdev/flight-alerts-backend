@@ -7,6 +7,8 @@
 ![Language](https://img.shields.io/github/languages/top/siegdev/flight-alerts-backend)
 [![Coverage Status](https://coveralls.io/repos/github/siegdev/flight-alerts-backend/badge.svg?branch=main)](https://coveralls.io/github/siegdev/flight-alerts-backend?branch=main)
 
+[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20Me%20a%20Coffee-%23ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/siegdev)
+
 Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
 > Track cheap flights and get notified — powered by PostgreSQL and Prisma.
