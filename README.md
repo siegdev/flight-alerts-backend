@@ -1,6 +1,11 @@
 # ✈️ Flight Alerts Backend
 
 ![CI](https://github.com/siegdev/flight-alerts-backend/actions/workflows/ci.yml/badge.svg)
+![Node](https://img.shields.io/badge/node-23.x-brightgreen)
+![License](https://img.shields.io/github/license/siegdev/flight-alerts-backend)
+![Last Commit](https://img.shields.io/github/last-commit/siegdev/flight-alerts-backend)
+![Language](https://img.shields.io/github/languages/top/siegdev/flight-alerts-backend)
+[![Coverage Status](https://coveralls.io/repos/github/siegdev/flight-alerts-backend/badge.svg?branch=main)](https://coveralls.io/github/siegdev/flight-alerts-backend?branch=main)
 
 Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
