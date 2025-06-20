@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,13 @@ async function bootstrap() {
     .addBearerAuth()
     .addTag('alerts', 'Flight alert operations')
     .addTag('auth', 'Authentication operations')
+    .addTag('user', 'User operations')
+    .setContact(
+      'API Support',
+      'https://github.com/siegdev',
+      'julio.sieg@gmail.com',
+    )
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -22,6 +30,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
+
+  const allExceptionsFilter = app.get(AllExceptionsFilter);
+  app.useGlobalFilters(allExceptionsFilter);
 
   await app.listen(process.env.PORT ?? 3000);
 }
