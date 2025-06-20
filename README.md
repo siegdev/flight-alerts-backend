@@ -1,5 +1,7 @@
 # ✈️ Flight Alerts Backend
 
+![CI](https://github.com/siegdev/flight-alerts-backend/actions/workflows/ci.yml/badge.svg)
+
 Backend API built with **NestJS + TypeScript** for managing flight price alerts.
 
 > Track cheap flights and get notified — powered by PostgreSQL and Prisma.
