@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { RequestCodeDto } from './dto/request-code.dto';
 import { VerifyCodeDto } from './dto/verify-code.dto';
@@ -14,7 +15,21 @@ export class AuthController {
   }
 
   @Post('verify-code')
-  async verifyCode(@Body() dto: VerifyCodeDto) {
-    return this.authService.verifyCode(dto);
+  async verifyCode(@Body() dto: VerifyCodeDto, @Res() res: Response) {
+    const result = await this.authService.verifyCode(dto);
+    res.cookie('auth_token', result.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 1000 * 60 * 60,
+    });
+
+    return res.json({ success: true });
+  }
+
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('auth_token');
+    return { success: true, message: 'Logged out successfully' };
   }
 }

@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAlertDto } from './dto/create-alert.dto';
 import { Prisma } from '@prisma/client';
@@ -36,11 +40,21 @@ export class AlertsService {
     });
   }
 
-  delete(id: string, email: string) {
-    return this.prisma.flightAlert.deleteMany({
+  async delete(id: string, email: string): Promise<void> {
+    const alert = await this.prisma.flightAlert.findFirst({
       where: {
         id,
         email,
+      },
+    });
+
+    if (!alert) {
+      throw new NotFoundException(`Alert with ID ${id} not found`);
+    }
+
+    await this.prisma.flightAlert.delete({
+      where: {
+        id,
       },
     });
   }
