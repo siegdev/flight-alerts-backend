@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JwtPayload } from './types/jwt-payload.type';
@@ -27,6 +27,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     ) {
       return { email: payload.email };
     }
-    throw new Error('Invalid token payload');
+    throw new UnauthorizedException('Invalid token payload');
   }
 }

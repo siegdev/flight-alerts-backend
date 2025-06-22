@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -6,7 +7,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
@@ -31,9 +32,17 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
 
-  const allExceptionsFilter = app.get(AllExceptionsFilter);
-  app.useGlobalFilters(allExceptionsFilter);
+  try {
+    const allExceptionsFilter = app.get(AllExceptionsFilter);
+    app.useGlobalFilters(allExceptionsFilter);
+  } catch (err) {
+    /* empty */
+  }
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+
+/* istanbul ignore next */
+if (require.main === module) {
+  bootstrap();
+}

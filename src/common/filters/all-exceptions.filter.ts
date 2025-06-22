@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   ExceptionFilter,
   Catch,
@@ -20,24 +19,20 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    let message = 'Internal server error';
 
-    let message =
-      exception instanceof HttpException
-        ? exception.getResponse()
-        : 'Internal server error';
-
-    if (typeof message === 'object' && (message as any).message) {
-      if (
-        typeof message === 'object' &&
-        message !== null &&
-        'message' in message
-      ) {
-        message = (message as { message: string }).message;
-      }
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      message = exception.getResponse() as string;
+    } else if (typeof exception === 'string') {
+      message = exception;
+    } else if (
+      exception &&
+      typeof exception === 'object' &&
+      'message' in exception
+    ) {
+      message = (exception as { message: string }).message;
     }
 
     this.logger.error('Unhandled exception', {

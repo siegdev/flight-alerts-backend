@@ -31,12 +31,14 @@ export class AuthService {
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('Error generating code:', error.message);
+        throw error;
       } else if (typeof error === 'string') {
         console.error('Unknown error:', error);
+        throw new Error(error);
       } else {
         console.error('Unknown error:', JSON.stringify(error));
+        throw new Error('Unknown error');
       }
-      throw error;
     }
   }
 
